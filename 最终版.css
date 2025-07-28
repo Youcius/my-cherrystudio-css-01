@@ -1,0 +1,173 @@
+/* ================================================= */
+/*  Cherry-Studio 输入框美化 (贴近默认暗色调-最终版) */
+/* ================================================= */
+
+/* ----- 1. 核心变量定义 ----- */
+:root {
+  /* 动画曲线 (保持不变) */
+  --cs-smooth-out: cubic-bezier(0.2, 0.8, 0.4, 1);
+
+  /* -- 新的、更中性的颜色变量 -- */
+
+  /* 输入框背景色: 一个更中性的炭灰色调，轻微偏冷 */
+    --cs-neutral-dark-shade: rgba(25,25,25,1);
+
+  /* 呼吸辉光: 改为非常柔和的白色辉光，更细腻 */
+  --cs-neutral-breath-color: rgba(255, 255, 255, 0.08);
+
+  /* 焦点辉光: 一个更内敛、不那么刺眼的灰蓝色，与很多UI的次要文本色接近 */
+  --cs-neutral-focus-color: #A6B0C3; 
+
+  /* -- 亮色模式的变量 (保持不变) -- */
+  --cs-light-input-shade: rgba(248, 250, 252, 0.9);
+}
+
+/* ----- 2. 动画定义 ----- */
+/* 动画使用新的辉光颜色 */
+@keyframes inputBreathNeutral {
+  0% { box-shadow: 0 0 0 0 var(--cs-neutral-breath-color); }
+  70% { box-shadow: 0 0 0 10px rgba(255, 255, 255, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0); }
+}
+
+/* ----- 3. 针对性样式覆盖 ----- */
+
+#inputbar {
+  /* 核心视觉效果 */
+  backdrop-filter: blur(12px) !important;
+
+  /* 应用新的、更柔和的呼吸动画 */
+  animation: inputBreathNeutral 3.5s ease-in-out infinite !important;
+
+  /* 过渡效果 */
+  transition: 
+    border-color 0.3s var(--cs-smooth-out),
+    box-shadow 0.3s var(--cs-smooth-out) !important;
+}
+
+/* 仅在暗黑模式下应用中性炭灰背景 */
+body[theme-mode='dark'] #inputbar {
+  background: var(--cs-neutral-dark-shade) !important;
+}
+
+/* 亮色模式保持不变 */
+body[theme-mode='light'] #inputbar {
+  background: var(--cs-light-input-shade) !important;
+}
+
+/* 焦点状态: 使用新的中性焦点色 */
+#inputbar:focus-within {
+  animation: none !important;
+  box-shadow: 0 0 0 1.5px var(--cs-neutral-focus-color) !important;
+}
+
+/* ================================================= */
+/*          Claude 风格代码块 (最终版)             */
+/* ================================================= */
+
+/* ----- 1. 定义颜色和字体变量 (如果已有，可忽略) ----- */
+:root {
+  /* 使用你自己的字体变量，或者直接写字体名 */
+  --font-sans: 'Inter', -apple-system, system-ui;
+  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+
+  /* -- Claude 风格的颜色定义 -- */
+
+  /* 代码块主背景色：非常深的炭灰色 */
+  --claude-bg: #19191D;
+
+  /* 顶部信息栏背景色：比主背景稍亮的灰色 */
+  --claude-header-bg: #2A2A31;
+
+  /* 边框颜色，用于- Separation Line */
+  --claude-border: #3A3A40;
+
+  /* 代码默认文字颜色 */
+  --claude-text: #E5E5E5;
+
+  /* 信息栏文字颜色 (如 "python") */
+  --claude-subtext: #A6B0C3;
+
+  /* 滚动条滑块颜色 */
+  --claude-scrollbar-thumb: #5F6C84;
+}
+
+/* ----- 2. 核心样式 ----- */
+
+/* <pre> 标签是代码块的最外层容器 */
+pre {
+  background: var(--claude-bg) !important;
+  border: 1px solid var(--claude-border) !important;
+  border-radius: 12px !important;
+  margin: 1.5em 0 !important; /* 上下边距，使其与正文有呼吸感 */
+  overflow: hidden; /* 隐藏超出圆角的部分 */
+  position: relative; /* 为 "复制" 按钮的绝对定位提供基准 */
+}
+
+/* <code> 标签是代码的直接包装器 */
+pre code {
+  display: block; /* 使其表现为块级元素，可以设置内边距和滚动 */
+  padding: 1rem 1.2rem !important; /* 代码的内边距 */
+  font-family: var(--font-mono) !important;
+  color: var(--claude-text) !important;
+  background: none !important; /* 清除可能存在的默认背景 */
+  overflow-x: auto; /* 当代码过长时，出现水平滚动条 */
+  max-height: 500px; /* 限制最大高度，过长则出现垂直滚动条 */
+}
+
+/* ----- 3. 模拟顶部信息栏 (最关键的部分) ----- */
+
+/* 利用 ::before 伪元素创建信息栏 */
+pre::before {
+  content: attr(data-lang); /* 读取 pre 标签的 data-lang 属性作为内容 */
+  display: block;
+  background: var(--claude-header-bg) !important;
+  padding: 0.6rem 1.2rem;
+  font-family: var(--font-sans) !important;
+  font-size: 0.85rem;
+  color: var(--claude-subtext) !important;
+  text-transform: lowercase; /* 将语言名称转为小写，如 "Python" -> "python" */
+  border-bottom: 1px solid var(--claude-border);
+}
+
+/* 当代码块没有指定语言时，不显示信息栏 */
+pre:not
+
+/* ================================================= */
+/*         【最终整合版】全局加粗滚动条样式          */
+/*         (兼容 WebKit 内核与 Firefox)            */
+/* ================================================= */
+
+/* ----- Part 1: Firefox 浏览器专有规则 ----- */
+/* Firefox会读取这部分，而Chrome/Edge会忽略它 */
+html {
+  scrollbar-width: auto !important; /* 'auto' = 标准宽度, 'thin' = 细宽度 */
+  scrollbar-color: rgba(140, 140, 140, 0.7) transparent !important; /* 滑块颜色 轨道颜色 */
+}
+
+
+/* ----- Part 2: WebKit 内核浏览器专有规则 ----- */
+/* Chrome/Edge/Cherry Studio会读取这部分，而Firefox会忽略它 */
+
+/* 定义轨道和整体尺寸 */
+::-webkit-scrollbar {
+  width: 12px !important;
+}
+
+/* 定义轨道背景 */
+/* ::-webkit-scrollbar-track {
+  background: transparent !important;
+} */
+
+/* 定义滑块样式 */
+/* ::-webkit-scrollbar-thumb {
+  background-color: rgba(140, 140, 140, 0.7) !important;
+  border-radius: 14px !important;
+} */
+
+/* 定义鼠标悬停样式 */
+/* ::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(160, 160, 160, 0.9) !important;
+} */
+
+
