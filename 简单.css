@@ -92,22 +92,3 @@ pre code {
   overflow-x: auto; /* 内容超出时，允许水平滚动 */
   max-height: 500px; /* 限制最大高度，超出时会出现垂直滚动条 */
 }
-
-/* 注意：此处的 'pre:not' 选择器不完整，请补充完整 */
-pre:not
-
-/* --- 浏览器滚动条全局样式 --- */
-
-/* 适用于 Firefox */
-html {
-  scrollbar-width: auto !important; /* 滚动条宽度 */
-  scrollbar-color: rgba(140, 140, 140, 0.7) transparent !important; /* 滑块颜色 和 轨道颜色 */
-}
-
-/* 适用于 Chrome, Edge, Safari (WebKit) */
-::-webkit-scrollbar {
-  width: 12px !important; /* 滚动条整体宽度 */
-}
-
-/* 你可以在这里继续添加 ::-webkit-scrollbar-thumb 和 ::-webkit-scrollbar-track 的样式 */
-
