@@ -1,0 +1,360 @@
+/* 
+ * 主字体: Maple Mono NF CN + HarmonyOS Sans CN
+ */
+
+/* ===== 字体导入 ===== */
+@import url('https://fonts.googleapis.com/css2?family=Audiowide:wght@400&display=swap');
+@import url('https://cdn.jsdelivr.net/npm/@fontsource/harmonyos-sans@latest/index.css');
+
+/* ===== 基础配置 ===== */
+:root {
+  /* 颜色定义 - 深海科技 (Deep Ocean Tech) */
+  --color-main-pink: #0A58CA;      /* 用于 H1，替换原粉色为主蓝色 */
+  --color-main-green: #00C4FF;     /* 用于链接，替换原绿色为亮青色 */
+  --color-main-blue: #0A58CA;      /* 用于 H4 和引用块，保持主蓝色 */
+  --color-accent-peach: #5E9EFF;    /* 用于 H2，替换原桃色为次级蓝色 */
+  --color-accent-purple: #44BBA4;   /* 用于 H5 和行内代码，替换为蓝绿色 */
+  
+  /* 暗色模式 */
+  --bg-color: #121826;             /* 更深邃的背景 */
+  --text-color: #E0E7FF;
+  --text-muted: #939CB0;
+  --border-color: rgba(0, 196, 255, 0.2);
+  
+  /* 圆角和阴影 */
+  --radius: 10px;
+  --shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+body[theme-mode="light"] {
+  --bg-color: #ffffff;
+  --text-color: #333333;
+  --text-muted: #757575;
+  --border-color: rgba(108, 223, 255, 0.25);
+}
+
+/* ===== 基础样式 ===== */
+body {
+  font-family: "HarmonyOS Sans CN", "Maple Mono NF CN", system-ui, sans-serif;
+  color: var(--text-color);
+  background-color: var(--bg-color);
+  line-height: 1.6;
+  font-size: 14px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ===== Markdown 容器 ===== */
+.markdown {
+  color: var(--text-color);
+  line-height: 1.6;
+}
+
+/* ===== 文本样式 ===== */
+.markdown p {
+  margin: 0.8em 0;
+  color: var(--text-color);
+  letter-spacing: 0.01em;
+}
+
+.markdown strong, .markdown b {
+  font-weight: 600;
+  color: var(--color-main-pink);
+}
+
+.markdown em, .markdown i {
+  color: var(--color-main-pink);
+  font-style: italic;
+}
+
+.markdown :not(pre)>code {
+  background-color: rgba(212, 180, 222, 0.2);
+  color: var(--color-accent-purple);
+  padding: 0.2em 0.4em;
+  font-size: 0.9em;
+  border-radius: 4px;
+  font-family: "Maple Mono NF CN", monospace;
+}
+
+/* ===== 标题样式 ===== */
+.markdown h1,
+.markdown h2,
+.markdown h3,
+.markdown h4,
+.markdown h5,
+.markdown h6 {
+  font-family: "Audiowide", "HarmonyOS Sans CN", sans-serif;
+  font-weight: 700;
+  margin-top: 1.2em;
+  margin-bottom: 0.6em;
+  line-height: 1.3;
+  letter-spacing: 0.02em;
+}
+
+.markdown h1 {
+  font-size: 2em;
+  color: var(--color-main-pink);
+  border-bottom: 2px solid rgba(244, 172, 183, 0.3);
+  padding-bottom: 0.3em;
+}
+
+.markdown h2 {
+  font-size: 1.6em;
+  color: var(--color-accent-peach);
+  border-bottom: 1px solid rgba(255, 216, 190, 0.3);
+  padding-bottom: 0.3em;
+}
+
+.markdown h3 {
+  font-size: 1.4em;
+  color: var(--color-main-green);
+}
+
+.markdown h4 {
+  font-size: 1.2em;
+  color: var(--color-main-blue);
+}
+
+.markdown h5 {
+  font-size: 1.1em;
+  color: var(--color-accent-purple);
+}
+
+.markdown h6 {
+  font-size: 1em;
+  color: var(--color-accent-peach);
+}
+
+/* ===== 链接样式 ===== */
+.markdown a {
+  color: var(--color-main-green);
+  text-decoration: none;
+  font-weight: 500;
+  border-bottom: 1px solid rgba(157, 219, 188, 0.4);
+  transition: border-color 0.3s ease, color 0.3s ease;
+}
+
+.markdown a:hover {
+  border-bottom-color: var(--color-main-green);
+  color: var(--color-main-green);
+}
+
+/* ===== 列表样式 ===== */
+.markdown ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.markdown ul li {
+  position: relative;
+  /* 为左侧的 SVG 符号留出空间 */
+  padding-left: 1.8em; 
+  margin-bottom: 0.4em;
+}
+
+.markdown ul li::before {
+  content: ''; /* 伪元素内容为空 */
+  position: absolute;
+  left: 0.4em; /* 控制符号的水平位置 */
+  
+  /* 关键对齐代码 */
+  top: 0.8em; /* 行高 1.6 的一半，定位到第一行文本的垂直中心 */
+  transform: translateY(-50%); /* 从中心点向上移动自身高度的50%，实现完美垂直居中 */
+
+  height: 0.4em; /* SVG 图标的高度 */
+  width: 0.4em;  /* SVG 图标的宽度 */
+  
+  /* 使用内联 SVG作为背景图，可以轻松修改颜色 */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='50' fill='%239DDBBC'/%3E%3C/svg%3E");
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+/* 如果您想让不同级别的列表有不同颜色的圆点，可以这样做 */
+.markdown ul ul li::before {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='50' fill='%234A90E2'/%3E%3C/svg%3E");
+}
+
+.markdown ol {
+  padding-left: 2.5em;
+}
+
+.markdown ol li {
+  margin-bottom: 0.4em;
+}
+
+
+/* ===== 引用块 ===== */
+.markdown blockquote:not(.callout) {
+  position: relative;
+  margin: 1.2em 0;
+  padding: 1em 1em 1em 2.5em;
+  background-color: rgba(74, 144, 226, 0.08);
+  border-left: 3px solid var(--color-main-blue);
+  border-radius: var(--radius);
+  transition: background-color 0.3s ease;
+}
+
+.markdown blockquote:not(.callout):hover {
+  background-color: rgba(74, 144, 226, 0.12);
+}
+
+.markdown blockquote:not(.callout)::before {
+  content: '"';
+  position: absolute;
+  left: 0.5em;
+  top: 0.1em;
+  font-size: 2.5em;
+  color: var(--color-main-blue);
+  opacity: 0.3;
+  line-height: 1;
+}
+
+/* ===== 代码块 ===== */
+.markdown pre {
+  background: linear-gradient(135deg, 
+    rgba(255, 255, 255, 0.2) 0%,
+    rgba(255, 255, 255, 0.1) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+  padding: 1em;
+  overflow-x: auto;
+  margin: 1em 0;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.markdown pre code {
+  font-family: "Maple Mono NF CN", monospace;
+  font-size: 0.9em;
+  line-height: 1.5;
+  color: var(--text-color);
+}
+
+/* ===== 表格样式 ===== */
+.markdown table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1em 0;
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
+
+.markdown table th {
+  background-color: rgba(108, 223, 255, 0.15);
+  color: var(--text-color);
+  padding: 0.8em;
+  font-weight: 600;
+  text-align: left;
+  border-bottom: 2px solid var(--border-color);
+  font-family: "HarmonyOS Sans CN", sans-serif;
+}
+
+.markdown table td {
+  padding: 0.8em;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.markdown table tbody tr {
+  transition: background-color 0.3s ease;
+}
+
+.markdown table tbody tr:hover {
+  background-color: rgba(108, 223, 255, 0.08);
+}
+
+/* ===== 水平线 ===== */
+.markdown hr {
+  height: 1px;
+  background: linear-gradient(to right, 
+    transparent, 
+    var(--color-main-blue), 
+    var(--color-main-pink), 
+    transparent
+  );
+  border: none;
+  margin: 2em 0;
+}
+
+/* ===== 提示块 ===== */
+.markdown .callout {
+  margin: 1em 0;
+  padding: 1em 1em 1em 2.5em;
+  border-radius: var(--radius);
+  border-left: 3px solid;
+  position: relative;
+  transition: background-color 0.3s ease;
+}
+
+.markdown .callout-note {
+  background-color: rgba(135, 206, 250, 0.1);
+  border-left-color: #87cefa;
+}
+
+.markdown .callout-note:hover {
+  background-color: rgba(135, 206, 250, 0.15);
+}
+
+.markdown .callout-tip {
+  background-color: rgba(179, 230, 138, 0.1);
+  border-left-color: #b3e68a;
+}
+
+.markdown .callout-tip:hover {
+  background-color: rgba(179, 230, 138, 0.15);
+}
+
+.markdown .callout-warning {
+  background-color: rgba(255, 208, 138, 0.1);
+  border-left-color: #ffd08a;
+}
+
+.markdown .callout-warning:hover {
+  background-color: rgba(255, 208, 138, 0.15);
+}
+
+.markdown .callout-danger {
+  background-color: rgba(255, 138, 138, 0.1);
+  border-left-color: #ff8a8a;
+}
+
+.markdown .callout-danger:hover {
+  background-color: rgba(255, 138, 138, 0.15);
+}
+
+.markdown .callout-title {
+  font-weight: 600;
+  margin-bottom: 0.5em;
+  font-family: "HarmonyOS Sans CN", sans-serif;
+}
+
+/* ===== 图片 ===== */
+.markdown img {
+  max-width: 100%;
+  border-radius: var(--radius);
+  margin: 1em 0;
+  display: block;
+  transition: transform 0.3s ease;
+}
+
+.markdown img:hover {
+  transform: scale(1.02);
+}
+
+/* ===== 响应式设计 ===== */
+@media (max-width: 768px) {
+  .markdown h1 { font-size: 1.6em; }
+  .markdown h2 { font-size: 1.4em; }
+  .markdown h3 { font-size: 1.2em; }
+  
+  .markdown pre {
+    font-size: 0.85em;
+    padding: 0.8em;
+  }
+  
+  .markdown table th,
+  .markdown table td {
+    padding: 0.6em;
+    font-size: 0.9em;
+  }
+}
