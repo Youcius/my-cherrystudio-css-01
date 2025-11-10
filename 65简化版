@@ -8,12 +8,14 @@
 
 /* ===== 基础配置 ===== */
 :root {
-  /* 颜色定义 - 深海科技 (Deep Ocean Tech) */
-  --color-main-pink: #0A58CA;      /* 用于 H1，替换原粉色为主蓝色 */
-  --color-main-green: #00C4FF;     /* 用于链接，替换原绿色为亮青色 */
-  --color-main-blue: #0A58CA;      /* 用于 H4 和引用块，保持主蓝色 */
-  --color-accent-peach: #5E9EFF;    /* 用于 H2，替换原桃色为次级蓝色 */
-  --color-accent-purple: #44BBA4;   /* 用于 H5 和行内代码，替换为蓝绿色 */
+  --color-main-pink: #0A58CA;    
+  --color-main-green: #00C4FF;   
+  --color-main-blue: #0A58CA;    
+  --color-accent-peach: #5E9EFF; 
+  --color-accent-purple: #44BBA4;
+  --color-h4-blue: #3D7DDE;         /* H4 颜色 */
+  --color-h5-blue: #6B9CEF;         /* H5 颜色 */
+  --color-h6-blue: #99BBF7;         /* H6 颜色 */
   
   /* 暗色模式 */
   --bg-color: #121826;             /* 更深邃的背景 */
@@ -112,17 +114,17 @@ body {
 
 .markdown h4 {
   font-size: 1.2em;
-  color: var(--color-main-blue);
+  color: var(--color-h4-blue);
 }
 
 .markdown h5 {
   font-size: 1.1em;
-  color: var(--color-accent-purple);
+  color: var(--color-h5-blue);
 }
 
 .markdown h6 {
   font-size: 1em;
-  color: var(--color-accent-peach);
+  color: var(--color-h6-blue);
 }
 
 /* ===== 链接样式 ===== */
@@ -165,14 +167,13 @@ body {
   width: 0.4em;  /* SVG 图标的宽度 */
   
   /* 使用内联 SVG作为背景图，可以轻松修改颜色 */
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='50' fill='%239DDBBC'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='50' fill='%238892A7'/%3E%3C/svg%3E");
   background-size: contain;
   background-repeat: no-repeat;
 }
 
-/* 如果您想让不同级别的列表有不同颜色的圆点，可以这样做 */
 .markdown ul ul li::before {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='50' fill='%234A90E2'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='50' fill='%23B6BCC9'/%3E%3C/svg%3E");
 }
 
 .markdown ol {
