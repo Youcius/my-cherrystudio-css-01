@@ -26,6 +26,15 @@
   /* 圆角和阴影 */
   --radius: 10px;
   --shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+
+  /* 内联代码 & 引用 颜色 */
+  --inline-code-bg: rgba(10, 88, 202, 0.16);
+  --inline-code-border: rgba(0, 196, 255, 0.40);
+  --inline-code-text: #E6F4FF;
+  --blockquote-bg: rgba(148, 163, 184, 0.08);
+  --blockquote-border: rgba(94, 158, 255, 0.60);
+  --radius: 10px;
+  --shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
 body[theme-mode="light"] {
@@ -33,6 +42,13 @@ body[theme-mode="light"] {
   --text-color: #333333;
   --text-muted: #757575;
   --border-color: rgba(108, 223, 255, 0.25);
+  
+  /* ：浅色下的内联代码 & 引用 */
+  --inline-code-bg: rgba(10, 88, 202, 0.06);
+  --inline-code-border: rgba(10, 88, 202, 0.18);
+  --inline-code-text: #1E293B;
+  --blockquote-bg: rgba(148, 163, 184, 0.06);
+  --blockquote-border: rgba(94, 158, 255, 0.35);
 }
 
 /* ===== 基础样式 ===== */
@@ -69,13 +85,28 @@ body {
   font-style: italic;
 }
 
+/* ===== 内联代码 ===== */
 .markdown :not(pre)>code {
-  background-color: rgba(212, 180, 222, 0.2);
-  color: var(--color-accent-purple);
-  padding: 0.2em 0.4em;
-  font-size: 0.9em;
-  border-radius: 4px;
-  font-family: "Maple Mono NF CN", monospace;
+  display: inline-block;
+  padding: 0.5em 1em;
+  margin: 0 0.1em;
+  border-radius: 16px;
+  background: var(--inline-code-bg);
+  border: 1px solid var(--inline-code-border);
+  color: var(--inline-code-text);
+  font-size: 0.8em;
+  font-family: "Maple Mono NF CN", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  line-height: 1.4;
+  white-space: break-spaces;        /* 长路径/命令换行更自然 */
+  vertical-align: baseline;
+  box-shadow: 0 0 0 1px rgba(15, 23, 42, 0.05);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    transform 0.1s ease;
 }
 
 /* ===== 标题样式 ===== */
@@ -127,88 +158,16 @@ body {
   color: var(--color-h6-blue);
 }
 
-/* ===== 链接样式 ===== */
+/* ===== 链接样式：无下划线 ===== */
 .markdown a {
   color: var(--color-main-green);
-  text-decoration: none;
   font-weight: 500;
-  border-bottom: 1px solid rgba(157, 219, 188, 0.4);
-  transition: border-color 0.3s ease, color 0.3s ease;
-}
-
-.markdown a:hover {
-  border-bottom-color: var(--color-main-green);
-  color: var(--color-main-green);
-}
-
-/* ===== 列表样式 ===== */
-.markdown ul {
-  list-style: none;
-  padding-left: 0;
-}
-
-.markdown ul li {
-  position: relative;
-  /* 为左侧的 SVG 符号留出空间 */
-  padding-left: 1.8em; 
-  margin-bottom: 0.4em;
-}
-
-.markdown ul li::before {
-  content: ''; /* 伪元素内容为空 */
-  position: absolute;
-  left: 0.4em; /* 控制符号的水平位置 */
-  
-  /* 关键对齐代码 */
-  top: 0.8em; /* 行高 1.6 的一半，定位到第一行文本的垂直中心 */
-  transform: translateY(-50%); /* 从中心点向上移动自身高度的50%，实现完美垂直居中 */
-
-  height: 0.4em; /* SVG 图标的高度 */
-  width: 0.4em;  /* SVG 图标的宽度 */
-  
-  /* 使用内联 SVG作为背景图，可以轻松修改颜色 */
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='50' fill='%238892A7'/%3E%3C/svg%3E");
-  background-size: contain;
-  background-repeat: no-repeat;
-}
-
-.markdown ul ul li::before {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='50' fill='%23B6BCC9'/%3E%3C/svg%3E");
-}
-
-.markdown ol {
-  padding-left: 2.5em;
-}
-
-.markdown ol li {
-  margin-bottom: 0.4em;
-}
-
-
-/* ===== 引用块 ===== */
-.markdown blockquote:not(.callout) {
-  position: relative;
-  margin: 1.2em 0;
-  padding: 1em 1em 1em 2.5em;
-  background-color: rgba(74, 144, 226, 0.08);
-  border-left: 3px solid var(--color-main-blue);
-  border-radius: var(--radius);
-  transition: background-color 0.3s ease;
-}
-
-.markdown blockquote:not(.callout):hover {
-  background-color: rgba(74, 144, 226, 0.12);
-}
-
-.markdown blockquote:not(.callout)::before {
-  content: '"';
-  position: absolute;
-  left: 0.5em;
-  top: 0.1em;
-  font-size: 2.5em;
-  color: var(--color-main-blue);
-  opacity: 0.3;
-  line-height: 1;
+  text-decoration: none;              /* 不要下划线 */
+  border-radius: 4px;
+  transition:
+    color 0.2s ease,
+    background-color 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
 /* ===== 代码块 ===== */
